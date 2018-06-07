@@ -1,7 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 const config = require('./config');
+
+mongoose.connect(config.database, (err)=>{
+    if (err){
+        console.log(err);
+    }else {
+        console.log('Conected to :' + config.database);
+    }
+})
 
 const app = express();
 

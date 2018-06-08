@@ -9,6 +9,7 @@ var UserSchema = new Schema({
     password:{type:String, required:true, select:false}
 });
 
+//Hashing password 
 UserSchema.pre('save',(next)=>{
     var user = this;
     if (!user.isModified('password')) return next();
@@ -20,5 +21,11 @@ UserSchema.pre('save',(next)=>{
         next();
     })
 });
+
+UserSchema.methods.comparePassword = (password)=>{
+    var user = this;
+    return bcrypt.compareSync(password. user.password);
+
+};
 
 module.exports = mongoose.model('User', UserSchema);
